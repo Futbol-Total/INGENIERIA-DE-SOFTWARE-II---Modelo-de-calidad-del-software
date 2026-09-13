@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Evaluación de Telegram con el modelo FURPS"
+    />
+    <title>Telegram · FURPS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="tablas-furps.css" />
+  </head>
+  <body>
+    <main class="app">
+      <aside class="sidebar">
+        <div class="topbar">
+          <span>☰</span><i>UG</i><b>Ingeniería de Software II</b>
+        </div>
+        <div class="search">⌕ &nbsp; Buscar</div>
+        <nav class="chats">
+          <button class="chat active" data-view="inicio">
+            <i>F</i
+            ><span
+              ><b>Modelo FURPS</b><small>Evaluación de Telegram</small></span
+            ></button
+          ><button class="chat" data-view="proceso">
+            <i>P</i
+            ><span
+              ><b>Proceso de aplicación</b
+              ><small>Selección y escala</small></span
+            ></button
+          ><button class="chat" data-view="plantilla">
+            <i>T</i
+            ><span
+              ><b>Plantilla FURPS</b
+              ><small>Características y factores</small></span
+            ></button
+          ><button class="chat" data-view="cuestionario">
+            <i>✓</i
+            ><span
+              ><b>Cuestionario aplicado</b
+              ><small>19 preguntas y valoraciones</small></span
+            ></button
+          ><button class="chat" data-view="valoracion">
+            <i>4</i
+            ><span
+              ><b>Tabla de valoración</b
+              ><small>Escala 1 · 2 · 3 · 4</small></span
+            ></button
+          ><button class="chat" data-view="equivalencia">
+            <i>≡</i
+            ><span
+              ><b>Equivalencia de puntajes</b
+              ><small>Cálculo por cada factor</small></span
+            ></button
+          ><button class="chat" data-view="resultados">
+            <i>R</i
+            ><span
+              ><b>Resultados</b><small>Consolidación de puntajes</small></span
+            ></button
+          ><button class="chat" data-view="conclusiones">
+            <i>C</i
+            ><span
+              ><b>Conclusiones</b
+              ><small>Hallazgos y recomendaciones</small></span
+            ></button
+          ><button class="chat" data-view="referencias">
+            <i>↗</i
+            ><span><b>Referencias</b><small>Fuentes del informe</small></span>
+          </button>
+        </nav>
+        <footer>
+          Universidad de La Guajira<br /><small>Grupo B1 · 2026</small>
+        </footer>
+      </aside>
+      <section class="conversation">
+        <header>
+          <i>F</i>
+          <div>
+            <b id="head">Modelo FURPS</b
+            ><small id="sub">Aplicación de plantilla a Telegram</small>
+          </div>
+          <span>⌕ &nbsp; ⋮</span>
+        </header>
+        <div class="messages" id="messages"></div>
+        <footer class="composer">
+          ☻ <span>Evaluación de calidad del software</span> ➤
+        </footer>
+      </section>
+    </main>
+    <script src="script.js"></script>
+    <script src="tablas-furps.js"></script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+/* El panel lateral y el encabezado no se desplazan; solo cambia el contenido del chat. */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.conversation {
+  height: 100vh;
+  min-height: 0;
+}
+.conversation header,
+.composer {
+  position: relative;
+  z-index: 4;
+  flex: none;
+}
+.messages {
+  min-height: 0;
+  height: 100%;
+  overflow-y: scroll !important;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  scrollbar-gutter: stable;
+}
+.messages::-webkit-scrollbar {
+  width: 10px;
+}
+.messages::-webkit-scrollbar-track {
+  background: #111c25;
+  border-left: 1px solid #283b48;
+}
+.messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(#4c7187, #315365);
+  border: 2px solid #111c25;
+  border-radius: 12px;
+}
+.messages::-webkit-scrollbar-thumb:hover {
+  background: #5b93b2;
+}
+.furps-stack {
+  padding-right: 2px;
+}
+.furps-block {
+  overflow-x: auto;
+}
+.furps-block::-webkit-scrollbar {
+  height: 8px;
+}
+.furps-block::-webkit-scrollbar-thumb {
+  background: #4c7187;
+  border-radius: 10px;
+}
+.furps-block table {
+  min-width: 0;
+}
+.furps-block .question {
+  max-width: 650px;
+}
+.table {
+  overscroll-behavior: contain;
+}
+.table::-webkit-scrollbar {
+  height: 9px;
+}
+.table::-webkit-scrollbar-thumb {
+  background: #4c7187;
+  border-radius: 10px;
+}
+@media (max-width: 760px) {
+  .sidebar {
+    position: fixed;
+  }
+  .conversation {
+    height: 100vh;
+  }
+  .messages {
+    padding-bottom: 36px;
+  }
+}

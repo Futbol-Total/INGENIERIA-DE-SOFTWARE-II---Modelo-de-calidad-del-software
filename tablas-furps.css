@@ -1,0 +1,202 @@
+@import url("tema-negro-morado.css");
+/* Tablas FURPS: cada grupo de celdas usa la paleta oscura de Telegram. */
+.original-table {
+  overflow: auto;
+  margin-top: 15px;
+  border-radius: 12px;
+  border: 1px solid #36546a;
+  background: #111d27;
+  box-shadow: 0 12px 28px #0007;
+}
+.original-table table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 710px;
+  color: #eaf6ff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 12px;
+}
+.original-table th {
+  background: linear-gradient(180deg, #319bd3, #207db4);
+  border: 1px solid #4bb6ed;
+  padding: 8px 7px;
+  text-align: center;
+  color: #f7fcff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+.original-table td {
+  border: 1px solid #355264;
+  padding: 7px 8px;
+  vertical-align: middle;
+}
+.original-table .sigla {
+  background: linear-gradient(180deg, #153b59, #102d45);
+  color: #75d5ff;
+  text-align: center;
+  font-weight: 900;
+  font-size: 15px;
+  text-shadow: 0 0 10px #3db9ee88;
+}
+.original-table .vertical {
+  width: 34px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-decoration: underline;
+  text-decoration-color: #58c7fa;
+  text-align: center;
+  color: #d6f2ff;
+  letter-spacing: 0.04em;
+}
+.original-table .characteristic {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #f0f9ff;
+}
+.original-table .char-score,
+.original-table .factor-score,
+.original-table .grade,
+.original-table .group-total {
+  text-align: center;
+  font-weight: 750;
+}
+.original-table .factor {
+  color: #dceef8;
+  line-height: 1.35;
+}
+.original-table .f {
+  background: #1a3447;
+}
+.original-table .u {
+  background: #1b3040;
+}
+.original-table .r {
+  background: #323327;
+}
+.original-table .p {
+  background: #302844;
+}
+.original-table .s {
+  background: #243b31;
+}
+.original-table .characteristic.f {
+  background: #20445c;
+}
+.original-table .characteristic.u {
+  background: #214056;
+}
+.original-table .characteristic.r {
+  background: #45412d;
+}
+.original-table .characteristic.p {
+  background: #483661;
+}
+.original-table .characteristic.s {
+  background: #31513f;
+}
+.original-table .char-score,
+.original-table .factor-score {
+  color: #6bd1ff;
+  background-image: linear-gradient(#0d2739aa, #0d273955);
+}
+.original-table .grade {
+  min-width: 43px;
+  height: 31px;
+  font-size: 16px;
+  color: #62d5ff;
+  background-image: linear-gradient(#0d273988, #0d273944);
+}
+.original-table .group-total {
+  font-size: 14px;
+  color: #8be0ff;
+  background-image: linear-gradient(#12374eee, #12374eee);
+}
+.original-table tr:hover td:not(.sigla) {
+  filter: brightness(1.12);
+}
+.original-table .bottom td {
+  background: linear-gradient(90deg, #173e57, #1d6e9d);
+  border-color: #4bb6ed;
+  text-align: center;
+  color: #fff;
+  font-weight: 900;
+}
+.software-card {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+}
+.software-card > div {
+  background: #10202d;
+  border: 1px solid #2b4759;
+  border-radius: 9px;
+  padding: 11px 13px;
+}
+.software-card b {
+  display: block;
+  color: #65c9fa;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  margin-bottom: 5px;
+}
+.software-card span {
+  line-height: 1.45;
+  color: #e3f0f6;
+}
+.software-card .pending {
+  font-style: italic;
+  color: #94a9b7;
+}
+.software-card a {
+  color: #70d0ff;
+}
+.evaluator {
+  border-top: 1px solid #304756;
+  padding-top: 12px;
+  color: #d9effa;
+}
+.total-table {
+  overflow: auto;
+  margin-top: 15px;
+  border: 1px solid #335061;
+  border-radius: 10px;
+}
+.total-table table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 610px;
+}
+.total-table th {
+  background: #1d4057;
+  color: #e9f8ff;
+  text-align: left;
+  padding: 10px;
+  font-size: 12px;
+}
+.total-table td {
+  padding: 10px;
+  border-top: 1px solid #2b4353;
+  color: #dcebf2;
+}
+.total-table tr.f td {
+  background: #2b2425;
+}
+.total-table tr.u td {
+  background: #1d2d3b;
+}
+.total-table tr.r td {
+  background: #302c20;
+}
+.total-table tr.p td {
+  background: #2f2540;
+}
+.total-table tr.s td {
+  background: #243322;
+}
+.total-table .total-final td {
+  background: linear-gradient(90deg, #146e9e, #259fdd);
+  color: #fff;
+  font-weight: 800;
+}
