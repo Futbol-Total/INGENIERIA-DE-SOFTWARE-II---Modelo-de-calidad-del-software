@@ -194,24 +194,17 @@ const titles = {
   inicio: ["Modelo FURPS", "Aplicación de plantilla a Telegram"],
   proceso: ["Proceso de aplicación", "Metodología y escala definida"],
   plantilla: ["Plantilla FURPS", "Características y factores del modelo"],
-  cuestionario: ["Cuestionario aplicado", "19 preguntas diligenciadas"],
   resultados: ["Resultados", "Consolidación de puntajes"],
   conclusiones: ["Conclusiones", "Hallazgos y recomendaciones"],
   referencias: ["Referencias", "Fuentes consultadas"],
 };
-const level = (n) =>
-  n === 4 ? "Excelente" : n === 3 ? "Bueno" : n === 2 ? "Regular" : "Malo";
 const obtain = (r) => (r[6] / 4) * r[7];
 const total = rows.reduce((a, r) => a + obtain(r), 0).toFixed(1);
 function msg(x, out = false) {
   return `<article class="message ${out ? "out" : ""}">${x}<div class="meta">Modelo FURPS &nbsp; ✓✓</div></article>`;
 }
 function table(type) {
-  let head =
-    type === "factors"
-      ? "<th>Sigla</th><th>Característica</th><th>Puntaje</th><th>Factor</th><th>Puntaje factor</th>"
-      : "<th>Sigla</th><th>Característica</th><th>Factor</th><th>Pregunta del cuestionario</th><th>Evidencia en Telegram</th><th>Esperado</th><th>Obtenido</th>";
-  return `<div class="table"><table><thead><tr>${head}</tr></thead><tbody>${rows.map((r) => (type === "factors" ? `<tr><td class="score">${r[0]}</td><td>${r[2]}</td><td class="score">${r[0] === "F" ? 30 : r[0] === "U" ? 20 : r[0] === "R" ? 15 : r[0] === "P" ? 20 : 15}</td><td><b>${r[3]}</b></td><td class="score">${r[7]}</td></tr>` : `<tr><td class="score">${r[0]}</td><td>${r[2]}</td><td><b>${r[3]}</b></td><td>${r[4]}</td><td>${r[5]}</td><td class="score">4</td><td class="score">${r[6]} · ${level(r[6])}</td></tr>`)).join("")}</tbody></table></div>`;
+  return `<div class="table"><table><thead><tr><th>Sigla</th><th>Característica</th><th>Puntaje</th><th>Factor</th><th>Puntaje factor</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="score">${r[0]}</td><td>${r[2]}</td><td class="score">${r[0] === "F" ? 30 : r[0] === "U" ? 20 : r[0] === "R" ? 15 : r[0] === "P" ? 20 : 15}</td><td><b>${r[3]}</b></td><td class="score">${r[7]}</td></tr>`).join("")}</tbody></table></div>`;
 }
 function totals() {
   let g = {};
@@ -255,10 +248,6 @@ function render(v) {
   if (v === "plantilla")
     h = msg(
       `<span class="tag">TABLA DE LA PLANTILLA</span><h2>Modelo FURPS y sus factores</h2><p>Se reproduce la estructura de la tabla FURPS de la plantilla: características, factores y pesos. Total: 100 puntos.</p>${table("factors")}`,
-    );
-  if (v === "cuestionario")
-    h = msg(
-      `<span class="tag">CUESTIONARIO DILIGENCIADO</span><h2>Aplicación de preguntas a Telegram</h2><p>Las 19 preguntas se aplican de acuerdo con la escala definida; el puntaje esperado es excelente (4) y el obtenido recoge la evidencia observada.</p>${table("questions")}`,
     );
   if (v === "resultados")
     h =
