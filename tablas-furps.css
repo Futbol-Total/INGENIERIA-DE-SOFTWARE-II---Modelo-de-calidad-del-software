@@ -7,9 +7,23 @@
   border: 1px solid #36546a;
   background: #111d27;
   box-shadow: 0 12px 28px #0007;
+  scrollbar-color: #745eb0 #15121a;
+  scrollbar-width: thin;
+}
+.original-table::-webkit-scrollbar {
+  height: 9px;
+  width: 9px;
+}
+.original-table::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #604b98, #a28ae9);
+  border-radius: 10px;
+}
+.original-table::-webkit-scrollbar-track {
+  background: #15121a;
 }
 .original-table table {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
   min-width: 710px;
   color: #eaf6ff;
@@ -17,6 +31,9 @@
   font-size: 12px;
 }
 .original-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   background: linear-gradient(180deg, #319bd3, #207db4);
   border: 1px solid #4bb6ed;
   padding: 8px 7px;
@@ -30,6 +47,12 @@
   border: 1px solid #355264;
   padding: 7px 8px;
   vertical-align: middle;
+}
+.original-table tbody tr {
+  transition: filter .2s ease, transform .2s ease;
+}
+.original-table tbody tr:hover {
+  filter: brightness(1.15);
 }
 .original-table .sigla {
   background: linear-gradient(180deg, #153b59, #102d45);
@@ -113,15 +136,15 @@
   color: #8be0ff;
   background-image: linear-gradient(#12374eee, #12374eee);
 }
-.original-table tr:hover td:not(.sigla) {
-  filter: brightness(1.12);
-}
 .original-table .bottom td {
   background: linear-gradient(90deg, #173e57, #1d6e9d);
   border-color: #4bb6ed;
   text-align: center;
   color: #fff;
   font-weight: 900;
+}
+.original-table .bottom td:first-child {
+  letter-spacing: .06em;
 }
 .software-card {
   display: grid;
