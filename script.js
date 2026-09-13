@@ -288,6 +288,12 @@ document.querySelectorAll(".chat").forEach(
       render(b.dataset.view);
     }),
 );
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+  document.querySelector(".sidebar").classList.toggle("open");
+});
+document.querySelector(".chats").addEventListener("click", () => {
+  if (innerWidth <= 760) document.querySelector(".sidebar").classList.remove("open");
+});
 let swipeStart = null;
 const app = document.querySelector(".app");
 app.addEventListener(

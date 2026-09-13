@@ -208,6 +208,15 @@ body {
   padding: 0 25px;
   z-index: 2;
 }
+.menu-toggle {
+  display: none;
+  border: 0;
+  padding: 8px;
+  color: var(--ink);
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
 .conversation header i {
   background: linear-gradient(135deg, #55c8ff, #147cc1);
   transition: 0.3s;
@@ -445,6 +454,7 @@ body {
   .app {
     grid-template-columns: 1fr;
     min-height: 100vh;
+    width: 100%;
   }
   .sidebar {
     position: fixed;
@@ -469,19 +479,87 @@ body {
   .scale {
     grid-template-columns: repeat(2, 1fr);
   }
-  .conversation header:before {
-    content: "☰";
-    color: #b9d9eb;
-    font-size: 20px;
-    cursor: pointer;
+  .menu-toggle {
+    display: block;
   }
   .conversation header {
     padding: 0 15px;
   }
   .message {
     padding: 14px;
+    overflow-wrap: anywhere;
   }
   .composer {
     padding: 0 16px;
+  }
+}
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  .sidebar {
+    width: min(310px, 88vw);
+  }
+  .conversation {
+    grid-template-rows: 60px minmax(0, 1fr) 50px;
+  }
+  .conversation header {
+    gap: 8px;
+    padding: 0 10px;
+  }
+  .conversation header i {
+    width: 34px;
+    height: 34px;
+  }
+  .conversation header b {
+    font-size: 13px;
+  }
+  .conversation header small {
+    max-width: 185px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .conversation header > span {
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+  .messages {
+    padding: 14px 8px 24px;
+  }
+  .message {
+    border-radius: 11px 11px 11px 3px;
+    margin-bottom: 11px;
+    padding: 12px;
+  }
+  .message.out {
+    border-radius: 11px 11px 3px 11px;
+  }
+  .message h1 {
+    font-size: 21px;
+  }
+  .message h2 {
+    font-size: 18px;
+  }
+  .message p,
+  .message li {
+    line-height: 1.45;
+  }
+  .grid,
+  .summary {
+    gap: 8px;
+  }
+  .box,
+  .result {
+    padding: 10px;
+  }
+  .scale {
+    gap: 5px;
+  }
+  .scale span {
+    padding: 8px 5px;
+  }
+  .composer {
+    font-size: 12px;
   }
 }
