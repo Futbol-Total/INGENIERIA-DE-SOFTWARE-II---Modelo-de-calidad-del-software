@@ -223,6 +223,31 @@ function totals() {
     )
     .join("")}</tbody></table></div>`;
 }
+function furpsMetrics() {
+  const groups = {};
+  rows.forEach((r) => {
+    const maximum = r[0] === "F" ? 30 : r[0] === "U" ? 20 : r[0] === "R" ? 15 : r[0] === "P" ? 20 : 15;
+    groups[r[0]] ??= { name: r[2], points: 0, maximum: 0 };
+    groups[r[0]].points += obtain(r);
+    groups[r[0]].maximum += r[7];
+    groups[r[0]].weight = maximum;
+  });
+  return Object.entries(groups).map(([key, group]) => ({
+    key,
+    ...group,
+    percentage: (group.points / group.maximum) * 100,
+  }));
+}
+function modelCards() {
+  const descriptions = {
+    F: "Capacidades y funciones que Telegram ofrece.",
+    U: "Facilidad para aprender, configurar y utilizar.",
+    R: "Estabilidad, exactitud y comportamiento predecible.",
+    P: "Experiencia visual, respuesta y consistencia.",
+    S: "Mantenimiento, recursos y soporte del sistema.",
+  };
+  return furpsMetrics().map((item, index) => `<div class="furps-card" style="--card-delay:${index * 0.08}s"><div class="furps-card-top"><b>${item.key}</b><span>${item.weight} pts</span></div><strong>${item.name}</strong><p>${descriptions[item.key]}</p><div class="mini-bar"><i style="width:${item.percentage.toFixed(1)}%"></i></div><small>${item.percentage.toFixed(1)}% evaluado</small></div>`).join("");
+}
 function render(v) {
   document.querySelector("#head").textContent = titles[v][0];
   document.querySelector("#sub").textContent = titles[v][1];
@@ -237,17 +262,10 @@ function render(v) {
         true,
       );
   if (v === "proceso")
-    h =
-      msg(
-        `<span class="tag">METODOLOGÍA</span><h2>Aplicación de la plantilla de evaluación</h2><ol><li>Se seleccionó Telegram como aplicación a evaluar.</li><li>Se eligió la plantilla FURPS contenida en el documento entregado.</li><li>Se conservan sus cinco características, diecinueve factores y ponderaciones.</li><li>Se formuló una pregunta para cada factor y se aplicó la escala definida.</li><li>Se calculó cada factor: (puntaje obtenido / 4) × peso del factor.</li><li>Se consolidaron los resultados por característica y el total sobre 100.</li></ol>`,
-      ) +
-      msg(
-        `<h3>Escala valorativa definida</h3><div class="scale"><span><b>4</b>Excelente</span><span><b>3</b>Bueno</span><span><b>2</b>Regular</span><span><b>1</b>Malo</span></div><p>Ejemplo: Seguridad del sistema obtiene 3; por tanto, (3/4) × 10 = <b>7,5 puntos</b>.</p>`,
-        true,
-      );
+    h = msg(`<span class="tag">METODOLOGÍA · 6 ETAPAS</span><h2>Cómo se construyó la evaluación</h2><p>El análisis sigue una ruta reproducible: cada etapa transforma la observación en un resultado medible.</p><div class="process"><div class="process-step"><b>01</b><div><strong>Seleccionar</strong><span>Telegram como RED o aplicación web.</span></div></div><div class="process-step"><b>02</b><div><strong>Elegir el modelo</strong><span>FURPS para cubrir calidad funcional y técnica.</span></div></div><div class="process-step"><b>03</b><div><strong>Definir factores</strong><span>19 factores agrupados en 5 dimensiones.</span></div></div><div class="process-step"><b>04</b><div><strong>Valorar</strong><span>Escala de 1 a 4 con evidencia observable.</span></div></div><div class="process-step"><b>05</b><div><strong>Convertir</strong><span>Cada valoración se lleva a su peso porcentual.</span></div></div><div class="process-step"><b>06</b><div><strong>Consolidar</strong><span>Se suman los factores para obtener el total.</span></div></div></div><div class="formula"><small>FÓRMULA APLICADA</small><strong>(Puntaje obtenido ÷ 4) × peso del factor</strong><span>Ejemplo: Seguridad del sistema = (3 ÷ 4) × 10 = 7,5 puntos.</span></div>`, true) + msg(`<h3>Escala valorativa definida</h3><div class="scale scale-enhanced"><span><b>4</b>Excelente<small>100% del criterio</small></span><span><b>3</b>Bueno<small>75% del criterio</small></span><span><b>2</b>Regular<small>50% del criterio</small></span><span><b>1</b>Malo<small>25% del criterio</small></span></div>`, true);
   if (v === "plantilla")
     h = msg(
-      `<span class="tag">TABLA DE LA PLANTILLA</span><h2>Modelo FURPS y sus factores</h2><p>Se reproduce la estructura de la tabla FURPS de la plantilla: características, factores y pesos. Total: 100 puntos.</p>${table("factors")}`,
+      `<span class="tag">MODELO · FURPS</span><h2>Las cinco dimensiones de calidad</h2><p>FURPS organiza la evaluación en cinco características y asigna 100 puntos según su importancia. Las tarjetas muestran el peso y el cumplimiento calculado con las valoraciones actuales.</p><div class="furps-cards">${modelCards()}</div><div class="model-total"><span>Peso total del modelo</span><strong>100 puntos</strong></div><details><summary>Ver tabla completa de factores</summary>${table("factors")}</details>`,
     );
   if (v === "resultados")
     h =
@@ -259,9 +277,14 @@ function render(v) {
         true,
       );
   if (v === "conclusiones")
-    h = msg(
-      `<span class="tag">CIERRE</span><h2>Conclusiones</h2><p><b>1.</b> Telegram obtiene <b>${total}/100</b> en la plantilla FURPS, lo que indica una calidad alta para mensajería digital.</p><p><b>2.</b> Funcionalidad, facilidad de uso y rendimiento son sus puntos más fuertes por la variedad de funciones y disponibilidad multiplataforma.</p><p><b>3.</b> Seguridad obtiene 3/4: los chats secretos tienen cifrado de extremo a extremo, pero no es el modo predeterminado de los chats en nube.</p><p><b>4.</b> Se recomienda activar verificación en dos pasos, revisar privacidad, permisos de grupo y sesiones activas.</p>`,
-    );
+    {
+      const metrics = furpsMetrics();
+      const strongest = metrics.reduce((best, item) => item.percentage > best.percentage ? item : best);
+      const weakest = metrics.reduce((worst, item) => item.percentage < worst.percentage ? item : worst);
+      const level = Number(total) >= 90 ? "Excelente" : Number(total) >= 75 ? "Alto" : "En desarrollo";
+      const bars = metrics.map((item, index) => `<div class="metric" style="--metric-value:${item.percentage.toFixed(1)}%; --metric-delay:${index * 0.1}s"><div><b>${item.key}</b><span>${item.name}</span><strong>${item.percentage.toFixed(1)}%</strong></div><div class="metric-bar"><i></i></div></div>`).join("");
+      h = msg(`<span class="tag">CIERRE · ANÁLISIS DINÁMICO</span><h2>Conclusiones de la evaluación</h2><div class="conclusion-score"><div><small>PUNTAJE FURPS</small><strong>${total}<em>/100</em></strong><span class="status">${level}</span></div><div class="score-ring" style="--score:${total}%"><b>${total}%</b><small>CUMPLIMIENTO</small></div></div><p>La evaluación muestra un nivel <b>${level.toLowerCase()}</b> para Telegram. El resultado se calcula con las 19 valoraciones y los pesos definidos en la plantilla FURPS.</p><div class="metrics">${bars}</div><div class="insight-grid"><div class="insight positive"><b>Fortaleza principal</b><strong>${strongest.name}</strong><span>${strongest.percentage.toFixed(1)}% de cumplimiento</span></div><div class="insight attention"><b>Oportunidad de mejora</b><strong>${weakest.name}</strong><span>${weakest.percentage.toFixed(1)}% de cumplimiento</span></div></div><div class="recommendation"><b>Recomendación prioritaria</b><p>Reforzar la confiabilidad y la seguridad mediante la revisión de sesiones activas, privacidad, verificación en dos pasos y gestión de permisos. Estas acciones atienden directamente la dimensión con menor resultado: <strong>${weakest.name}</strong>.</p></div>`, true);
+    }
   if (v === "referencias")
     h = msg(
       `<span class="tag">FUENTES</span><h2>Referencias bibliográficas</h2><ol><li>Grady, R. B. (1992). <i>Practical software metrics for project management and process improvement</i>. Prentice Hall.</li><li>Rey, A. (2015). <i>Evaluación de la Calidad de la Tecnología Educativa, Capítulo II: Modelos de Calidad</i>. CVUDES. Documento suministrado para la actividad.</li><li>Telegram. (2026). <a href="https://telegram.org/faq" target="_blank">Telegram FAQ</a>.</li><li>Telegram. (2026). <a href="https://telegram.org/privacy" target="_blank">Privacy Policy</a> y <a href="https://core.telegram.org/api/end-to-end" target="_blank">Secret Chats and End-to-End Encryption</a>.</li></ol>`,
