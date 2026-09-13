@@ -298,7 +298,13 @@ let swipeStart = null;
 const app = document.querySelector(".app");
 app.addEventListener(
   "pointerdown",
-  (e) => (swipeStart = { x: e.clientX, y: e.clientY }),
+  (e) => {
+    if (e.target.closest(".sidebar, button, a")) {
+      swipeStart = null;
+      return;
+    }
+    swipeStart = { x: e.clientX, y: e.clientY };
+  },
 );
 app.addEventListener("pointerup", (e) => {
   if (!swipeStart) return;
